@@ -1,3 +1,3 @@
 # Fiveday Weather
 
-This app makes requests US cities five day weather forcast
+Requests US cities five day weather forcast
