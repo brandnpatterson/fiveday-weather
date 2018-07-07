@@ -46,7 +46,7 @@ class SearchInput extends Component {
                 className="form-control"
                 onChange={this.onChange}
                 placeholder={
-                  this.props.error ? this.props.error : 'Search for a City'
+                  this.props.error ? this.props.error : 'Search for a US City'
                 }
                 ref={input => {
                   this.nameInput = input;
