@@ -1,8 +1,28 @@
-import { createStore, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
 
-const middleware = [ReduxPromise];
+const initialState = {};
+const middleware = [thunk];
 
-const store = applyMiddleware(...middleware)(createStore);
+let store;
+
+if (process.env.NODE_ENV === 'development') {
+  store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(...middleware),
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  );
+} else if (process.env.NODE_ENV === 'production') {
+  store = createStore(
+    rootReducer,
+    initialState,
+    compose(applyMiddleware(...middleware))
+  );
+}
 
 export default store;

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { object, func } from 'prop-types';
+import { object } from 'prop-types';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import Chart from './Chart';
 import GoogleMap from './GoogleMap';
+
+// Redux
+import { connect } from 'react-redux';
 
 const grayBorder = '#DFE2E6';
 
 class WeatherList extends Component {
   static propTypes = {
-    dispatch: func.isRequired,
     weather: object
   };
 
@@ -33,56 +34,58 @@ class WeatherList extends Component {
   cities = () => {
     const { smallScreen } = this.state;
 
-    return this.props.weather.cities.map((cityData, index) => {
-      const temps = cityData.list.map(list => list.main.temp - 219);
-      const pressures = cityData.list.map(list => list.main.pressure);
-      const humidities = cityData.list.map(list => list.main.humidity);
-      const { lat, lon } = cityData.city.coord;
+    return this.props.weather.cities
+      .map((cityData, index) => {
+        const temps = cityData.list.map(list => list.main.temp - 219);
+        const pressures = cityData.list.map(list => list.main.pressure);
+        const humidities = cityData.list.map(list => list.main.humidity);
+        const { lat, lon } = cityData.city.coord;
 
-      return (
-        <tbody key={index}>
-          <tr style={{ border: `1px solid ${grayBorder}` }}>
-            {smallScreen && (
+        return (
+          <tbody key={index}>
+            <tr style={{ border: `1px solid ${grayBorder}` }}>
+              {smallScreen && (
+                <td>
+                  <h4>City</h4>
+                </td>
+              )}
               <td>
-                <h4>City</h4>
+                <GoogleMap lat={lat} lon={lon} />
               </td>
-            )}
-            <td>
-              <GoogleMap lat={lat} lon={lon} />
-            </td>
-            {smallScreen && (
+              {smallScreen && (
+                <td>
+                  <h4>Temp (°F)</h4>
+                </td>
+              )}
               <td>
-                <h4>Temp (°F)</h4>
+                <Chart data={temps} color="red" convert={true} units="°F" />
               </td>
-            )}
-            <td>
-              <Chart data={temps} color="red" convert={true} units="°F" />
-            </td>
-            {smallScreen && (
+              {smallScreen && (
+                <td>
+                  <h4>Pressure (hPa)</h4>
+                </td>
+              )}
               <td>
-                <h4>Pressure (hPa)</h4>
+                <Chart data={pressures} color="green" units="hPa" />
               </td>
-            )}
-            <td>
-              <Chart data={pressures} color="green" units="hPa" />
-            </td>
-            {smallScreen && (
+              {smallScreen && (
+                <td>
+                  <h4>Humidity (%)</h4>
+                </td>
+              )}
               <td>
-                <h4>Humidity (%)</h4>
+                <Chart data={humidities} color="blue" units="%" />
               </td>
-            )}
-            <td>
-              <Chart data={humidities} color="blue" units="%" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="spacing" />
-            </td>
-          </tr>
-        </tbody>
-      );
-    });
+            </tr>
+            <tr>
+              <td>
+                <div className="spacing" />
+              </td>
+            </tr>
+          </tbody>
+        );
+      })
+      .reverse();
   };
 
   render() {

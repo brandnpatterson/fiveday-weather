@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { func } from 'prop-types';
+
+// Redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getWeather } from '../actions';
+import { getWeather } from '../actions/weatherActions';
 
 class SearchInput extends Component {
   static propTypes = {
@@ -10,15 +11,8 @@ class SearchInput extends Component {
   };
 
   state = {
-    error: null,
     text: ''
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.weather.error) {
-      this.setState({ error: nextProps.weather.error });
-    }
-  }
 
   onChange = e => {
     this.setState({
@@ -52,7 +46,7 @@ class SearchInput extends Component {
                 className="form-control"
                 onChange={this.onChange}
                 placeholder={
-                  this.state.error ? this.state.error : 'Search for a City'
+                  this.props.error ? this.props.error : 'Search for a City'
                 }
                 ref={input => {
                   this.nameInput = input;
@@ -71,15 +65,12 @@ class SearchInput extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getWeather }, dispatch);
-};
-
 const mapStateToProps = state => ({
+  error: state.error,
   weather: state.weather
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { getWeather }
 )(SearchInput);
