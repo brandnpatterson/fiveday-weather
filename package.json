@@ -1,7 +1,15 @@
 {
-  "name": "fiveday-weather-avg",
+  "name": "fiveday-weather",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "create-cname": "echo 'fiveday-weather.surge.sh' > build/CNAME",
+    "deploy": "npm run build && surge build",
+    "build": "react-scripts build && npm run create-cname",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^3.10.1",
@@ -13,13 +21,5 @@
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0",
     "styled-components": "^3.3.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "create-cname": "echo 'test-runebear.surge.sh' > build/CNAME",
-    "deploy": "npm run build && surge build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   }
 }
