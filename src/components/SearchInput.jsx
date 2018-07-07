@@ -10,12 +10,20 @@ class SearchInput extends Component {
   };
 
   state = {
+    error: null,
     text: ''
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.weather.error) {
+      this.setState({ error: nextProps.weather.error });
+    }
+  }
+
   onChange = e => {
     this.setState({
-      text: e.target.value
+      text: e.target.value,
+      error: null
     });
   };
 
@@ -43,7 +51,9 @@ class SearchInput extends Component {
               <input
                 className="form-control"
                 onChange={this.onChange}
-                placeholder="Search for a City"
+                placeholder={
+                  this.state.error ? this.state.error : 'Search for a City'
+                }
                 ref={input => {
                   this.nameInput = input;
                 }}
@@ -65,7 +75,11 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ getWeather }, dispatch);
 };
 
+const mapStateToProps = state => ({
+  weather: state.weather
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchInput);
