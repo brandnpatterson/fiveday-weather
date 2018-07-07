@@ -1,22 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
 
 const Footer = () => {
   return (
-    <StyledFooter className="bg-light text-white p-4 text-center">
-      <a href="https://github.com/brandnpatterson">
+    <footer
+      style={{ marginTop: '67vh' }}
+      className="bg-light text-white p-4 text-center"
+    >
+      <a
+        href="https://github.com/brandnpatterson"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Copyright &copy; {new Date().getFullYear()} Brandon Patterson
       </a>
-    </StyledFooter>
+    </footer>
   );
 };
-
-const StyledFooter = styled.footer`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  line-height: 60px;
-  background-color: #f5f5f5;
-`;
 
 export default Footer;
