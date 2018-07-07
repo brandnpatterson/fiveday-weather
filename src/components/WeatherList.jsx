@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { object } from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
 import Chart from './Chart';
 import GoogleMap from './GoogleMap';
-
-// Redux
-import { connect } from 'react-redux';
 
 const grayBorder = '#DFE2E6';
 
 class WeatherList extends Component {
   static propTypes = {
-    weather: object
+    weather: object.isRequired
   };
 
   state = {

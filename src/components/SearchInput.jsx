@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { func } from 'prop-types';
-
-// Redux
 import { connect } from 'react-redux';
 import { getWeather } from '../actions/weatherActions';
 
