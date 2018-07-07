@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import SearchInput from './components/SearchInput';
 import WeatherList from './components/WeatherList';
@@ -10,6 +11,7 @@ export default class App extends Component {
         <Header />
         <SearchInput />
         <WeatherList />
+        <Footer />
       </div>
     );
   }
