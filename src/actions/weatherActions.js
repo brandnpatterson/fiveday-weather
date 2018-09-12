@@ -16,9 +16,6 @@ export const getWeather = city => dispatch => {
         type: GET_WEATHER,
         payload: res.data
       });
-      dispatch({
-        type: CLEAR_ERRORS
-      });
     })
     .catch(() => {
       dispatch({
